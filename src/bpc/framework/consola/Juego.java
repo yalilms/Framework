@@ -1,4 +1,9 @@
+package bpc.framework.consola;
+
 import bpc.daw.consola.Consola;
+import bpc.framework.consola.Escena;
+import bpc.framework.consola.Resolucion;
+
 import java.awt.event.KeyEvent;
 
 public class Juego {
