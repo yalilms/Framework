@@ -1,12 +1,14 @@
 package bpc.framework.consola;
 
+import bpc.daw.consola.Consola;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Escena implements ElementoJuego {
 
     protected Juego juego;
-    protected ConsolaDAW consola;
+    protected Consola consola;
     private List<GameObject> objetos;
 
     public Escena() {
@@ -17,10 +19,9 @@ public abstract class Escena implements ElementoJuego {
 
     @Override
     public void inicializar() {
-        // COMENTADO TEMPORALMENTE PARA LOS TESTS
-        // if (consola == null || juego == null) {
-        //     throw new IllegalStateException("Hay que añadir la escena al juego para poder inicializarla");
-        // }
+        if (this.consola == null || this.juego == null) {
+            throw new IllegalStateException("Hay que añadir la escena al juego para poder inicializarla");
+        }
         this.objetos = new ArrayList<>();
         añadirObjetosIniciales();
     }
@@ -49,14 +50,14 @@ public abstract class Escena implements ElementoJuego {
 
     @Override
     public void ejecutarFrame() {
-        for (int i = 0; i < objetos.size(); i++) {
-            objetos.get(i).ejecutarFrame();
+        for (int i = 0; i < this.objetos.size(); i++) {
+            this.objetos.get(i).ejecutarFrame();
         }
     }
 
     @Override
     public void finalizar() {
-        List<GameObject> objetosACopiar = new ArrayList<>(objetos);
+        List<GameObject> objetosACopiar = new ArrayList<>(this.objetos);
 
         for (GameObject gameObject : objetosACopiar) {
             retirar(gameObject);
