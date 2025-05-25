@@ -1,6 +1,9 @@
 package bpc.framework.consola;
 
-import bpc.daw.consola.*;
+import bpc.daw.consola.Consola;
+import bpc.framework.consola.Escena;
+import bpc.framework.consola.Resolucion;
+
 import java.awt.event.KeyEvent;
 
 public class Juego {
@@ -18,48 +21,25 @@ public class Juego {
     }
 
     // Inicia el juego con una resolución y una escena
-    public void iniciar(Escena escenaInicial, Resolucion resolucion) {
-        // Crear la consola con la resolución especificada
-        this.consola = new Consola("Juego", 
-            (int)resolucion.getResolucion().getWidth(), 
-            (int)resolucion.getResolucion().getHeight());
-        
+    public void iniciar(Resolucion resolucion, Escena escenaInicial) {
         this.resolucion = resolucion;
-        
-        // Configurar la escena inicial
+        this.consola = new Consola("Juego", resolucion.getResolucion().width, resolucion.getResolucion().height);
         setEscena(escenaInicial);
-        
         this.detener = false;
-        
-        // Bucle principal del juego a 60 FPS
-        while (!this.detener) {
-            if (this.consola.getTeclado().teclaPulsada(KeyEvent.VK_ESCAPE)) {
-                break;
-            }
-            
-            if (this.escena != null) {
-                this.escena.ejecutarFrame();
-            }
-            
-            this.consola.esperarSiguienteFrame();
-            
-            try {
-                Thread.sleep(16); // Aproximadamente 60 FPS
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
-            }
+
+        // Bucle principal de juego a 60FPS
+        while (!detener && !consola.getTeclado().teclaPulsada(KeyEvent.VK_ESCAPE)) {
+            consola.esperarSiguienteFrame(); // sincroniza con el siguiente frame
+            escena.ejecutarFrame();
         }
     }
 
     // Asigna nueva escena y la inicializa
     public void setEscena(Escena nuevaEscena) {
-        if (nuevaEscena != null) {
-            this.escena = nuevaEscena;
-            this.escena.juego = this;
-            this.escena.consola = this.consola;
-            this.escena.inicializar();
-        }
+        this.escena = nuevaEscena;
+        escena.juego = this;
+        escena.consola = this.consola;
+        escena.inicializar();
     }
 
     // Devuelve la escena activa
@@ -74,11 +54,11 @@ public class Juego {
 
     // Devuelve anchura actual
     public int getAnchuraPantalla() {
-        return this.resolucion != null ? (int)this.resolucion.getResolucion().getWidth() : 0;
+        return this.resolucion.getResolucion().width;
     }
 
     // Devuelve altura actual
     public int getAlturaPantalla() {
-        return this.resolucion != null ? (int)this.resolucion.getResolucion().getHeight() : 0;
+        return this.resolucion.getResolucion().height;
     }
 }
