@@ -20,21 +20,21 @@ public class Juego {
         this.resolucion = null;
     }
 
-    // Inicia el juego con una resolución y una escena
+
     public void iniciar(Resolucion resolucion, Escena escenaInicial) {
         this.resolucion = resolucion;
         this.consola = new Consola("Juego", resolucion.getResolucion().width, resolucion.getResolucion().height);
         setEscena(escenaInicial);
         this.detener = false;
 
-        // Bucle principal de juego a 60FPS
-        while (!detener && !consola.getTeclado().teclaPulsada(KeyEvent.VK_ESCAPE)) {
-            consola.esperarSiguienteFrame(); // sincroniza con el siguiente frame
-            escena.ejecutarFrame();
+
+        while (!this.detener && !this.consola.getTeclado().teclaPulsada(KeyEvent.VK_ESCAPE)) {
+            this.consola.esperarSiguienteFrame();
+            this.escena.ejecutarFrame();
         }
     }
 
-    // Asigna nueva escena y la inicializa
+
     public void setEscena(Escena nuevaEscena) {
         this.escena = nuevaEscena;
         this.escena.juego = this;
@@ -42,22 +42,22 @@ public class Juego {
         this.escena.inicializar();
     }
 
-    // Devuelve la escena activa
+
     public Escena getEscena() {
         return this.escena;
     }
 
-    // Detiene el juego
+
     public void detener() {
         this.detener = true;
     }
 
-    // Devuelve anchura actual
+
     public int getAnchuraPantalla() {
         return this.resolucion.getResolucion().width;
     }
 
-    // Devuelve altura actual
+
     public int getAlturaPantalla() {
         return this.resolucion.getResolucion().height;
     }

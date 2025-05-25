@@ -1,25 +1,23 @@
 import bpc.framework.consola.*;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+
+import java.util.Locale;
 
 public class Programa {
     public static void main(String[] args) {
         try {
             SpriteGameObjectTesteador spriteGameObjectTesteador = new SpriteGameObjectTesteador(
-                    ImageIO.read(new File("clasesProyecto.png")),
+                    ImageIO.read(new File("juan.png")),
                     100,
                     100
             );
             Juego juego = new Juego();
-            juego.setEscena(new EscenaTesteadoraSprite(spriteGameObjectTesteador));
-            juego.iniciar(Resolucion.PANTALLA_COMPLETA, juego.getEscena());
+            EscenaTesteadoraSprite escena = new EscenaTesteadoraSprite(spriteGameObjectTesteador);
+            juego.iniciar(Resolucion.PANTALLA_COMPLETA, escena);
         } catch (IOException error) {
-            System.out.println(error.getMessage());
+            System.out.println("Error al cargar la imagen: " + error.getMessage());
         }
-
     }
 }
