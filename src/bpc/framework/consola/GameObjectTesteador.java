@@ -1,21 +1,15 @@
 package bpc.framework.consola;
 
-public class GameObjectTesteador extends GameObject{
+public class GameObjectTesteador extends GameObject {
+    private String id;
     private boolean inicializado;
     private int frameCounter;
 
-    public GameObjectTesteador(int id) {
-        this.frameCounter = id;
+    public GameObjectTesteador(String id) {
+        super();
+        this.id = id;
         this.inicializado = false;
-    }
-
-
-    public boolean inicializado() {
-        return this.inicializado;
-    }
-
-    public int frameCounter() {
-        return this.frameCounter;
+        this.frameCounter = 0;
     }
 
     @Override
@@ -31,5 +25,13 @@ public class GameObjectTesteador extends GameObject{
     @Override
     public void finalizar() {
         this.inicializado = false;
+    }
+
+    public boolean inicializado() {
+        return this.inicializado;
+    }
+
+    public int frameCounter() {
+        return this.frameCounter;
     }
 }

@@ -1,6 +1,6 @@
 package bpc.framework.consola;
 
-import bpc.daw.consola.*;
+import bpc.daw.consola.Consola;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +37,7 @@ public abstract class Escena implements ElementoJuego {
     }
 
     public void retirar(GameObject obj) {
-        if (obj != null && this.objetos.contains(obj)) {
+        if (obj != null) {
             obj.finalizar();
             this.objetos.remove(obj);
             obj.consola = null;
@@ -47,7 +47,6 @@ public abstract class Escena implements ElementoJuego {
 
     @Override
     public void ejecutarFrame() {
-        // Usar índices para evitar ConcurrentModificationException
         for (int i = 0; i < this.objetos.size(); i++) {
             this.objetos.get(i).ejecutarFrame();
         }
@@ -55,13 +54,8 @@ public abstract class Escena implements ElementoJuego {
 
     @Override
     public void finalizar() {
-        if (this.objetos != null) {
-            // Crear una copia para evitar modificar la lista mientras la recorremos
-            List<GameObject> objetosACerrar = new ArrayList<>(this.objetos);
-            for (GameObject obj : objetosACerrar) {
-                retirar(obj);
-            }
-            this.objetos.clear();
+        while (!this.objetos.isEmpty()) {
+            retirar(this.objetos.get(0));
         }
     }
 
