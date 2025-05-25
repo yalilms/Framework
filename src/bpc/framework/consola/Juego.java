@@ -12,7 +12,6 @@ public class Juego {
     private boolean detener;
     private Resolucion resolucion;
 
-
     public Juego() {
         this.consola = null;
         this.escena = null;
@@ -27,10 +26,9 @@ public class Juego {
         setEscena(escenaInicial);
         this.detener = false;
 
-
-        while (!this.detener && !this.consola.getTeclado().teclaPulsada(KeyEvent.VK_ESCAPE)) {
-            this.consola.esperarSiguienteFrame();
-            this.escena.ejecutarFrame();
+        while (!detener && !consola.getTeclado().teclaPulsada(KeyEvent.VK_ESCAPE)) {
+            consola.esperarSiguienteFrame();
+            escena.ejecutarFrame();
         }
     }
 

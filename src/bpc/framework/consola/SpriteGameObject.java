@@ -18,7 +18,6 @@ public abstract class SpriteGameObject extends GameObject {
 
     @Override
     public void inicializar() {
-        this.consola = new Consola();
         this.sprite = this.consola.getCapaSprites().crearSprite(
                 this.imagen,
                 this.sprite.getRectangulo(),
