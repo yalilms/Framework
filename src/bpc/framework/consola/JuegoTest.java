@@ -5,7 +5,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 public class JuegoTest {
 
-    @Test public void test1(){
+    @Test
+    public void test1(){
         try {
             Juego juego = new Juego();
             EscenaTesteadora escena = new EscenaTesteadora();

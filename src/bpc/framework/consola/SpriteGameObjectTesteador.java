@@ -1,5 +1,6 @@
 package bpc.framework.consola;
 
+import bpc.daw.consola.Consola;
 import bpc.daw.consola.Sprite;
 import bpc.daw.consola.Teclado;
 
@@ -10,6 +11,7 @@ public class SpriteGameObjectTesteador extends GameObject {
     private Sprite sprite;
 
     public SpriteGameObjectTesteador(Image imagen, int x, int y) {
+        this.consola = new Consola();
         this.sprite = this.consola.getCapaSprites().crearSprite(
                 imagen,
                 imagen.getGraphics().getClipBounds(),

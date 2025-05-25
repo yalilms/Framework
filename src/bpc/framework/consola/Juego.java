@@ -37,9 +37,9 @@ public class Juego {
     // Asigna nueva escena y la inicializa
     public void setEscena(Escena nuevaEscena) {
         this.escena = nuevaEscena;
-        escena.juego = this;
-        escena.consola = this.consola;
-        escena.inicializar();
+        this.escena.juego = this;
+        this.escena.consola = this.escena.juego.consola;
+        this.escena.inicializar();
     }
 
     // Devuelve la escena activa
