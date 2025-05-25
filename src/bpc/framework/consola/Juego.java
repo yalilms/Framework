@@ -12,7 +12,7 @@ public class Juego {
     private boolean detener;
     private Resolucion resolucion;
 
-    // Constructor: deja todo a valores por defecto
+
     public Juego() {
         this.consola = null;
         this.escena = null;
