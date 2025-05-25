@@ -1,5 +1,6 @@
 package bpc.framework.consola;
 
+import bpc.daw.consola.Consola;
 import bpc.daw.consola.Sprite;
 
 import java.awt.*;
@@ -17,7 +18,13 @@ public abstract class SpriteGameObject extends GameObject {
 
     @Override
     public void inicializar() {
-        throw new UnsupportedOperationException("Metodo por completar");
+        this.consola = new Consola();
+        this.sprite = this.consola.getCapaSprites().crearSprite(
+                this.imagen,
+                this.sprite.getRectangulo(),
+                this.puntoInicial.x,
+                this.puntoInicial.y
+        );
     }
 
     public int getX() {
@@ -45,13 +52,15 @@ public abstract class SpriteGameObject extends GameObject {
     }
 
     public void setX(int x) {
-
+        this.sprite.setPosicion(this.sprite.getX() - x, this.sprite.getY());
     }
 
-    public void setY(int y) {}
+    public void setY(int y) {
+        this.sprite.setPosicion(this.sprite.getX(), this.sprite.getY() - y);
+    }
 
     @Override
     public void finalizar() {
-        throw new UnsupportedOperationException("Metodo sin terminar");
+        this.consola.getCapaSprites().eliminarSprite(this.sprite);
     }
 }
