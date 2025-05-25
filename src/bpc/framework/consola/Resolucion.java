@@ -4,8 +4,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 public enum Resolucion {
-    PANTALLA_COMPLETA(new Dimension((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
-            (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight())),
+    PANTALLA_COMPLETA(Toolkit.getDefaultToolkit().getScreenSize()),
     VENTANA_4K(new Dimension(4096, 2160)),
     VENTANA_FULLHD(new Dimension(1920, 1080)),
     VENTANA_QHD(new Dimension(2560, 1440)),
@@ -18,6 +17,6 @@ public enum Resolucion {
     }
 
     public Dimension getResolucion() {
-        return resolucion;
+        return this.resolucion;
     }
 }
