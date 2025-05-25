@@ -70,23 +70,4 @@ public class EscenaTesteadora extends Escena {
         return img;
     }
 
-    public static void main(String[] args) {
-        EscenaTesteadora escena = new EscenaTesteadora();
-        escena.inicializar();
-        escena.añadirObjetosIniciales();
-        
-        // Simular un bucle de juego simple (5 segundos a 60 FPS)
-        for (int i = 0; i < 300 && escena.estaInicializada(); i++) {
-            escena.ejecutarFrame();
-            try {
-                Thread.sleep(16); // Aproximadamente 60 FPS
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
-            }
-        }
-        
-        escena.finalizar();
-        System.out.println("Frames ejecutados: " + escena.getFrameCounter());
-    }
 }

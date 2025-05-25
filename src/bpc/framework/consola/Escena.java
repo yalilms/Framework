@@ -5,62 +5,44 @@ import bpc.daw.consola.Consola;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Escena implements ElementoJuego {
-
+public abstract class Escena {
     protected Juego juego;
     protected Consola consola;
-    private List<GameObject> objetos;
+    protected List<GameObject> objetos;
 
     public Escena() {
-        this.juego = null;
-        this.consola = null;
-        this.objetos = null;
-    }
-
-    @Override
-    public void inicializar() {
-        if (this.consola == null || this.juego == null) {
-            throw new IllegalStateException("Hay que añadir la escena al juego para poder inicializarla");
-        }
+        this.consola = new Consola();
         this.objetos = new ArrayList<>();
-        añadirObjetosIniciales();
     }
 
-    protected abstract void añadirObjetosIniciales();
+    public abstract void añadirObjetosIniciales();
 
-    public void añadir(GameObject gameObject) {
-
-        gameObject.juego = this.juego;
-        gameObject.consola = this.consola;
-        gameObject.escena = this;
-
-        this.objetos.add(gameObject);
-
-        gameObject.inicializar();
+    public void añadir(GameObject obj) {
+        if (obj != null) {
+            this.objetos.add(obj);
+        }
     }
 
-    public void retirar(GameObject gameObject) {
-        gameObject.finalizar();
-
-        this.objetos.remove(gameObject);
-
-        gameObject.consola = null;
-        gameObject.escena = null;
+    public void retirar(GameObject obj) {
+        if (obj != null) {
+            this.objetos.remove(obj);
+        }
     }
 
-    @Override
     public void ejecutarFrame() {
-        for (int i = 0; i < this.objetos.size(); i++) {
-            this.objetos.get(i).ejecutarFrame();
+        for (GameObject obj : this.objetos) {
+            obj.ejecutarFrame();
+        }
+        if (this.consola != null) {
+            this.consola.esperarSiguienteFrame();
         }
     }
 
-    @Override
-    public void finalizar() {
-        List<GameObject> objetosACopiar = new ArrayList<>(this.objetos);
+    public Consola getConsola() {
+        return this.consola;
+    }
 
-        for (GameObject gameObject : objetosACopiar) {
-            retirar(gameObject);
-        }
+    public List<GameObject> getObjetos() {
+        return this.objetos;
     }
 }
